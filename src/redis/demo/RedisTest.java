@@ -19,55 +19,55 @@ public class RedisTest {
 	Jedis jedis = new Jedis("127.0.0.1");
 
 	/**
-	 * jedis²Ù×÷String£¨×Ö·û´®£©
+	 * jedisæ“ä½œStringï¼ˆå­—ç¬¦ä¸²ï¼‰
 	 */
 	// @Test
 	public void stringTest() {
 
-		// Ìí¼ÓÊı¾İ
+		// æ·»åŠ æ•°æ®
 		jedis.set("key", "value");
 		System.out.println(jedis.get("key"));
-		// ĞŞ¸ÄÊı¾İ-×·¼Ó
-		jedis.append("key", "Éı¼¶");
+		// ä¿®æ”¹æ•°æ®-è¿½åŠ 
+		jedis.append("key", "å‡çº§");
 		System.out.println(jedis.get("key"));
-		// ¸²¸ÇÊı¾İ
+		// è¦†ç›–æ•°æ®
 		jedis.set("key", "value");
 		System.out.println(jedis.get("key"));
-		// É¾³ıÊı¾İ
+		// åˆ é™¤æ•°æ®
 		jedis.del("key");
 		System.out.println(jedis.get("key"));
 
 		/**
-		 * msetÏàµ±ÓÚ jedis.set("name","meepo"); jedis.set("dota","poofu");
+		 * msetç›¸å½“äº jedis.set("name","meepo"); jedis.set("dota","poofu");
 		 */
 		jedis.mset("first", "1", "second", "2");
 		System.out.println(jedis.get("first") + " " + jedis.get("second"));
 	}
 
 	/**
-	 * jedis²Ù×÷Hash(×Öµä£©
+	 * jedisæ“ä½œHash(å­—å…¸ï¼‰
 	 */
 	// @Test
 	public void setmapTest() {
-		// ´´½¨map
+		// åˆ›å»ºmap
 		Map<String, String> map = new HashMap<String, String>();
-		// °Ñ¼üÖµ¶Ô¼Óµ½map¼¯ºÏÀïÈ¥
+		// æŠŠé”®å€¼å¯¹åŠ åˆ°mapé›†åˆé‡Œå»
 		map.put("key", "value");
-		map.put("¼ü", "Öµ");
-		// ÔÚredis¸ømapÉèÖÃÒ»¸ö¼üÈ¥¶ÔÓ¦
+		map.put("é”®", "å€¼");
+		// åœ¨redisç»™mapè®¾ç½®ä¸€ä¸ªé”®å»å¯¹åº”
 		jedis.hmset("map", map);
-		// µÚÒ»¸ö²ÎÊı·Åredis¶ÔÓ¦µÄ¼ü£¬ºóÃæµÄ·Å¸Ã¼ü¶ÔÓ¦µÄmapÀïÃæµÄ¼ü
-		List<String> maplist = jedis.hmget("map", "¼ü", "key");
+		// ç¬¬ä¸€ä¸ªå‚æ•°æ”¾rediså¯¹åº”çš„é”®ï¼Œåé¢çš„æ”¾è¯¥é”®å¯¹åº”çš„mapé‡Œé¢çš„é”®
+		List<String> maplist = jedis.hmget("map", "é”®", "key");
 		System.out.println(maplist);
-		// É¾³ımapÖĞµÄÄ³¸ö¼üÖµ
+		// åˆ é™¤mapä¸­çš„æŸä¸ªé”®å€¼
 		// jedis.hdel("user","pwd");
-		System.out.println(jedis.hmget("map", "¼ü")); // ÒòÎªÉ¾³ıÁË£¬ËùÒÔ·µ»ØµÄÊÇnull
-		System.out.println(jedis.hlen("map")); // ·µ»ØkeyÎªuserµÄ¼üÖĞ´æ·ÅµÄÖµµÄ¸öÊı1
-		System.out.println(jedis.exists("map"));// ÊÇ·ñ´æÔÚkeyÎªuserµÄ¼ÇÂ¼ ·µ»Øtrue
-		System.out.println(jedis.hkeys("map"));// ·µ»Ømap¶ÔÏóÖĞµÄËùÓĞkey [pwd, name]
-		System.out.println(jedis.hvals("map"));// ·µ»Ømap¶ÔÏóÖĞµÄËùÓĞvalue [meepo,
+		System.out.println(jedis.hmget("map", "é”®")); // å› ä¸ºåˆ é™¤äº†ï¼Œæ‰€ä»¥è¿”å›çš„æ˜¯null
+		System.out.println(jedis.hlen("map")); // è¿”å›keyä¸ºuserçš„é”®ä¸­å­˜æ”¾çš„å€¼çš„ä¸ªæ•°1
+		System.out.println(jedis.exists("map"));// æ˜¯å¦å­˜åœ¨keyä¸ºuserçš„è®°å½• è¿”å›true
+		System.out.println(jedis.hkeys("map"));// è¿”å›mapå¯¹è±¡ä¸­çš„æ‰€æœ‰key [pwd, name]
+		System.out.println(jedis.hvals("map"));// è¿”å›mapå¯¹è±¡ä¸­çš„æ‰€æœ‰value [meepo,
 												// password]
-		// µü´ú±éÀúmapËùÓĞµÄ¼üÖµ¶Ô
+		// è¿­ä»£éå†mapæ‰€æœ‰çš„é”®å€¼å¯¹
 		Iterator<String> iter = jedis.hkeys("map").iterator();
 		while (iter.hasNext()) {
 			String key = iter.next();
@@ -76,65 +76,65 @@ public class RedisTest {
 	}
 
 	/**
-	 * jedis²Ù×÷list£¨ÁĞ±í£©
+	 * jedisæ“ä½œlistï¼ˆåˆ—è¡¨ï¼‰
 	 */
 	// @Test
 	public void setlistTest() {
-		// Çå¿ÕÊı¾İ
+		// æ¸…ç©ºæ•°æ®
 		// jedis.del("java list");
-		// Íùlist²åÈëÊı¾İ
+		// å¾€listæ’å…¥æ•°æ®
 		jedis.lpush("java list", "mybatis");
 		jedis.lpush("java list", "spring");
 		jedis.lpush("java list", "springMvc");
-		// µÚÒ»¸öÊÇkey£¬µÚ¶ş¸öÊÇÆğÊ¼Î»ÖÃ£¬µÚÈı¸öÊÇ½áÊøÎ»ÖÃ£¬lrangeÊÇ°´·¶Î§È¡³ö£¬ -1±íÊ¾È¡µÃËùÓĞ
+		// ç¬¬ä¸€ä¸ªæ˜¯keyï¼Œç¬¬äºŒä¸ªæ˜¯èµ·å§‹ä½ç½®ï¼Œç¬¬ä¸‰ä¸ªæ˜¯ç»“æŸä½ç½®ï¼Œlrangeæ˜¯æŒ‰èŒƒå›´å–å‡ºï¼Œ -1è¡¨ç¤ºå–å¾—æ‰€æœ‰
 		System.out.println(jedis.lrange("java list", 0, -1));
-		// llen»ñÈ¡³¤¶È
+		// llenè·å–é•¿åº¦
 		System.out.println(jedis.llen("java list"));
 	}
 
 	/**
-	 * jedis²Ù×÷Set£¨¼¯ºÏ£©
+	 * jedisæ“ä½œSetï¼ˆé›†åˆï¼‰
 	 */
 //	 @Test
 	public void setTest() {
 		jedis.del("List");
 
-		// Íù¼¯ºÏÌí¼ÓÊı¾İ
+		// å¾€é›†åˆæ·»åŠ æ•°æ®
 		jedis.sadd("List", "1");
 		jedis.sadd("List", "2");
 		jedis.sadd("List", "1");
 		jedis.sadd("List", "3");
 		jedis.sadd("List", "4");
-		// »ñÈ¡¼¯ºÏÈ«²¿µÄÖµ
+		// è·å–é›†åˆå…¨éƒ¨çš„å€¼
 		System.out.println(jedis.smembers("List"));
-		// ÒÆ³ı¼¯ºÏÄ³¸öÖµ
+		// ç§»é™¤é›†åˆæŸä¸ªå€¼
 		// jedis.srem("List", "1");
 		System.out.println(jedis.smembers("List"));
-		// ÅĞ¶ÏÄ³¸öÖµÊÇ·ñÊÇ¼¯ºÏÔªËØ
+		// åˆ¤æ–­æŸä¸ªå€¼æ˜¯å¦æ˜¯é›†åˆå…ƒç´ 
 		System.out.println(jedis.sismember("List", "4"));
-		// ·µ»Ø¼¯ºÏµÄÒ»¸öËæ»úÔªËØ
+		// è¿”å›é›†åˆçš„ä¸€ä¸ªéšæœºå…ƒç´ 
 		System.out.println(jedis.srandmember("List"));
-		// ·µ»Ø¼¯ºÏµÄÔªËØ¸öÊı
+		// è¿”å›é›†åˆçš„å…ƒç´ ä¸ªæ•°
 		System.out.println(jedis.scard("List"));
 	}
 
 //	 @Test
 	public void normalTest() {
-		// »ñÈ¡ËùÓĞµÄ¼ü
+		// è·å–æ‰€æœ‰çš„é”®
 		System.out.println(jedis.keys("*"));
-		// Ä£ºıÉ¸Ñ¡·µ»ØÏàÓ¦µÄ¼ü
+		// æ¨¡ç³Šç­›é€‰è¿”å›ç›¸åº”çš„é”®
 		System.out.println(jedis.keys("*st"));
-		// ·µ»Ø¸ø¶¨keyµÄÓĞĞ§Ê±¼ä£¬Èç¹ûÊÇ-1Ôò±íÊ¾ÓÀÔ¶
+		// è¿”å›ç»™å®škeyçš„æœ‰æ•ˆæ—¶é—´ï¼Œå¦‚æœæ˜¯-1åˆ™è¡¨ç¤ºæ°¸è¿œ
 		System.out.println(jedis.ttl("map"));
-		// Í¨¹ı´Ë·½·¨£¬¿ÉÒÔÖ¸¶¨keyµÄ´æ»î£¨ÓĞĞ§Ê±¼ä£© Ê±¼äÎªÃë
+		// é€šè¿‡æ­¤æ–¹æ³•ï¼Œå¯ä»¥æŒ‡å®škeyçš„å­˜æ´»ï¼ˆæœ‰æ•ˆæ—¶é—´ï¼‰ æ—¶é—´ä¸ºç§’
 		// jedis.setex("map", 2000, "min");
-		// Ë¯Ãß5Ãëºó£¬Ê£ÓàÊ±¼ä½«Îª<=5
+		// ç¡çœ 5ç§’åï¼Œå‰©ä½™æ—¶é—´å°†ä¸º<=5
 		// Thread.sleep(5000);
 	}
 
-	// jedis ÅÅĞò
-	// ×¢Òâ£¬´Ë´¦µÄrpushºÍlpushÊÇListµÄ²Ù×÷¡£ÊÇÒ»¸öË«ÏòÁ´±í£¨µ«´Ó±íÏÖÀ´¿´µÄ£©
-	// lpushÍùµ±Ç°ÁĞ±í×ó²àÌíÊı¾İ£¬rpushÍùµ±Ç°ÁĞ±íÓÒ²àÌíÊı¾İ
+	// jedis æ’åº
+	// æ³¨æ„ï¼Œæ­¤å¤„çš„rpushå’Œlpushæ˜¯Listçš„æ“ä½œã€‚æ˜¯ä¸€ä¸ªåŒå‘é“¾è¡¨ï¼ˆä½†ä»è¡¨ç°æ¥çœ‹çš„ï¼‰
+	// lpushå¾€å½“å‰åˆ—è¡¨å·¦ä¾§æ·»æ•°æ®ï¼Œrpushå¾€å½“å‰åˆ—è¡¨å³ä¾§æ·»æ•°æ®
 //	@Test
 	public void sortTest() {
 		jedis.del("a");
