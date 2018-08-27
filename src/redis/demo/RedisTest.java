@@ -132,7 +132,7 @@ public class RedisTest {
 		// Thread.sleep(5000);
 	}
 
-	// jedis 排序
+	// jedis 排序 
 	// 注意，此处的rpush和lpush是List的操作。是一个双向链表（但从表现来看的）
 	// lpush往当前列表左侧添数据，rpush往当前列表右侧添数据
 //	@Test
